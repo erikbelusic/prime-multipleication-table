@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require_relative '../lib/prime_multiplication_table'
+
+options = {
+    number_of_primes: 10
+}
+
+OptionParser.new do |parser|
+  parser.on('-h', '--help', 'Show this help message') do | |
+    puts parser
+  end
+  parser.on('-n', '--number NUMBER', 'The number of primes to generate for the table. Defaults to 10. Cannot exceed 1000') do |v|
+    options[:number_of_primes] = v.to_i
+  end
+end.parse!
+
+begin
+  PrimeMultiplicationTable.new(options[:number_of_primes]).run
+rescue ExceedsMaxValueError
+  $stdout.puts 'NUMBER option cannot exceed 1000'
+end

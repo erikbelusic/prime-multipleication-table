@@ -1,0 +1,3 @@
+class ExceedsMaxValueError < StandardError
+
+end
